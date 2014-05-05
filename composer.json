@@ -1,0 +1,14 @@
+{
+    "name": "avli/vetfee",
+    "description": "VET FEE Enrolment Form for AVLI",
+    "require": {
+        "stefangabos/zebra_form": "dev-master",
+        "components/jquery": "dev-master"
+    },
+    "authors": [
+        {
+            "name": "Raden Sucalit",
+            "email": "brownmestizo@gmail.com"
+        }
+    ]
+}
