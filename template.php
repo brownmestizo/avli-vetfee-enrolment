@@ -1,10 +1,18 @@
+<style type="text/css">
+    .Zebra_Form .optional { display: none }
+</style>
+
+<script type="text/javascript">
+    var mycallback = function(value, segment) {
+        $segment = $('.optional' + segment);
+        if (value) $segment.show();
+        else $segment.hide();
+    }
+</script>
+
 <?php
-    // don't forget about this for custom templates, or errors will not show for server-side validation
-    // $zf_error is automatically created by the library and it holds messages about SPAM or CSRF errors
-    // $error is the name of the variable used with the set_rule method
     echo (isset($zf_error) ? $zf_error : (isset($error) ? $error : ''));
 ?>
-
 
 <div class="row">
     <div class="cell"><?php echo $label_title . $title; ?> </div>
@@ -30,16 +38,52 @@
     <div class="cell"><?php echo $label_vetCourse . $vetCourse; ?> </div>
 </div>
 
-<div class="row even">    
-    <div class="cell"><?php echo $label_previousName . $previousName . $previousName_previousFirstName; ?> </div>
+<div class="row">    
+    <div class="cell"><?php echo $label_previousName . $previousName; ?> </div>
+    <div class="clear"></div>
+
+        <div class="optional optional1">
+            <div class="cell"><?php echo $label_previousFirstName . $previousFirstName?></div>
+            <div class="cell"><?php echo $label_previousLastName . $previousLastName?></div>
+            <div class="cell"><?php echo $label_previousOtherName . $previousOtherName?></div>
+        </div>
 </div>
 
+<div class="row"> <h3>Home Address</h3> </div>
+
+<div class="row even">    
+    <div class="cell"><?php echo $label_homeAddress . $homeAddress; ?> </div>
+    <div class="cell"><?php echo $label_homeSuburb . $homeSuburb; ?></div>
+    <div class="cell"><?php echo $label_homeCity . $homeCity; ?></div>
+    
+    <div class="clear"></div>    
+
+    <div class="cell"><?php echo $label_homeState . $homeState; ?></div>
+    <div class="cell"><?php echo $label_homeCountry . $homeCountry; ?></div>
+</div>
+
+<div class="row"> <h3>Postal Address</h3> </div>
+<div class="row even">    
+    <div class="cell"><?php echo $label_postalAddress . $postalAddress; ?> </div>
+    <div class="cell"><?php echo $label_postalSuburb . $postalSuburb; ?></div>
+    <div class="cell"><?php echo $label_postalCity . $postalCity; ?></div>
+    
+    <div class="clear"></div>    
+
+    <div class="cell"><?php echo $label_postalState . $postalState; ?></div>
+    <div class="cell"><?php echo $label_postalCountry . $postalCountry; ?></div>
+</div>
+
+<div class="row"> <h3>Language and Cultural Diversity </h3> </div>
+<div class="row even">    
+    <div class="cell"><?php echo $label_birthCountry . $birthCountry; ?> </div>
+</div>
 
 <!-- ######################## -->
 
 
 
-
+<!--
 <div class="row even">
     <?php echo $label_department . $department . $department_other?>
 </div>
@@ -49,9 +93,11 @@
     <div class="cell">
 
         <?php echo $label_room?>
+        -->
 
-        <!-- this is the preffered way of displaying checkboxes and
-        radio buttons and their associated label -->
+        <!-- this is the preffered way of displaying checkboxes and radio buttons and their associated label -->
+
+        <!--
         <div class="cell"><?php echo $room_A?></div>
         <div class="cell"><?php echo $label_room_A?></div>
         <div class="clear"></div>
@@ -90,6 +136,9 @@
     <div class="cell"><?php echo $label_date . $date?></div>
     <div class="cell" style="margin-left: 10px"><?php echo $label_time . $time?></div>
 </div>
+-->
+
+
 
 <!-- the submit button goes in the last row; also, notice the "last" class which
 removes the bottom border which is otherwise present for any row -->

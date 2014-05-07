@@ -1,3 +1,14 @@
+<?php 
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+include_once ('vendor/stefangabos/zebra_form/Zebra_Form.php');
+include_once ('avli_model.php');
+
+// instantiate two objects
+$form = new Zebra_Form('form');
+$enrolmentForm = new VetfeeEnrolment();
+?>
+
 <html>
     <head>
         <title>AVLI VET FEE ENROLMENT FORM</title>
@@ -11,16 +22,8 @@
     </head>
 
     <body>
-
+        
         <?php 
-
-            require 'vendor/stefangabos/zebra_form/Zebra_Form.php';
-            require 'avli_model.php';
-
-            // instantiate two objects
-            $form = new Zebra_Form('form');
-            $enrolmentForm = new VetfeeEnrolment();
-
             // Title
             $form->add('label', 'label_title', 'title', 'Title');
             $obj = $form->add('select', 'title', '', '');
@@ -104,26 +107,128 @@
 
             // Do you have a previous name?
             $form->add('label', 'label_previousName', 'previousName', 'Do you have a previous name?');
-            $obj = $form->add('select', 'previousName', '', array('previousFirstName' => true));
+            $obj = $form->add('select', 'previousName', '', '');
             $obj->add_options($enrolmentForm->previousName);
             $obj->set_rule(array(
                 'required' => array('error', 'Previous name response is required.')
             ));
 
             
-            $form->add('label', 'label_previousName', 'previousName', 'Do you have a previous name?');
-            $obj = $form->add('radios', 'previousName', array(
-                'yes'   =>  'Yes',
-                'no'    =>  'No',
-            ));
-            $obj->set_rule(array(
-                'required'  =>  array('error', 'Please select an answer!'),
-            ));            
-
             // Previous First Name
-            $form->add('label', 'label_previousFirstName', 'previousFirstName', 'Previous First Name');
+            $form->add('label', 'label_previousFirstName', 'previousFirstName', 'First Name');
             $obj = $form->add('text', 'previousFirstName');
+            $obj->set_rule(array(
+                'required'  =>  array('error', 'Previous first name is required.'),
+                'dependencies'   =>  array(array(
+                   'previousName' => '1',
+                ), 'mycallback, 1'),
+            ));
+            
+            // Previous Last Name
+            $form->add('label', 'label_previousLastName', 'previousLastName', 'Last Name');
+            $obj = $form->add('text', 'previousLastName');
+            $obj->set_rule(array(
+                'required'  =>  array('error', 'Previous last name is required.'),
+                'dependencies'   =>  array(array(
+                   'previousName' => '1',
+                ), 'mycallback, 1'),
+            ));
 
+            // Previous Last Name
+            $form->add('label', 'label_previousOtherName', 'previousOtherName', 'Other Name');
+            $obj = $form->add('text', 'previousOtherName');
+            $obj->set_rule(array(
+                'dependencies'   =>  array(array(
+                   'previousName' => '1',
+                ), 'mycallback, 1'),
+            ));
+
+            //***************************************************************
+            //***************************************************************            
+
+            // Home Address
+
+            // Address
+            $form->add('label', 'label_homeAddress', 'homeAddress', 'Address');
+            $obj = $form->add('text', 'homeAddress');
+            $obj->set_rule(array('required' => array('error', 'Address is required.')));
+
+            // Suburb/Town
+            $form->add('label', 'label_homeSuburb', 'homeSuburb', 'Suburb/Town');
+            $obj = $form->add('text', 'homeSuburb');
+            $obj->set_rule(array('required' => array('error', 'Suburb/Town is required.')));
+
+            // City
+            $form->add('label', 'label_homeCity', 'homeCity', 'City');
+            $obj = $form->add('text', 'homeCity');
+            $obj->set_rule(array('required' => array('error', 'City is required.')));
+
+            // State
+            $form->add('label', 'label_homeState', 'homeState', 'State');
+            $obj = $form->add('select', 'homeState', '', '');
+            $obj->add_options($enrolmentForm->state);
+            $obj->set_rule(array(
+                'required' => array('error', 'State is required.')
+            ));
+
+            // Country
+            $form->add('label', 'label_homeCountry', 'homeCountry', 'Country');
+            $obj = $form->add('select', 'homeCountry', '', '');
+            $obj->add_options($enrolmentForm->country);
+            $obj->set_rule(array(
+                'required' => array('error', 'Country is required.')
+            ));
+
+
+            //***************************************************************
+            //***************************************************************            
+
+
+            // Postal Address
+
+            // Address
+            $form->add('label', 'label_postalAddress', 'postalAddress', 'Address');
+            $obj = $form->add('text', 'postalAddress');
+            $obj->set_rule(array('required' => array('error', 'Address is required.')));
+
+            // Suburb/Town
+            $form->add('label', 'label_postalSuburb', 'postalSuburb', 'Suburb/Town');
+            $obj = $form->add('text', 'postalSuburb');
+            $obj->set_rule(array('required' => array('error', 'Suburb/Town is required.')));
+
+            // City
+            $form->add('label', 'label_postalCity', 'postalCity', 'City');
+            $obj = $form->add('text', 'postalCity');
+            $obj->set_rule(array('required' => array('error', 'City is required.')));
+
+            // State
+            $form->add('label', 'label_postalState', 'postalState', 'State');
+            $obj = $form->add('select', 'postalState', '', '');
+            $obj->add_options($enrolmentForm->state);
+            $obj->set_rule(array(
+                'required' => array('error', 'State is required.')
+            ));
+
+            // Country
+            $form->add('label', 'label_postalCountry', 'postalCountry', 'Country');
+            $obj = $form->add('select', 'postalCountry', '', '');
+            $obj->add_options($enrolmentForm->country);
+            $obj->set_rule(array(
+                'required' => array('error', 'Country is required.')
+            ));
+
+
+            //***************************************************************
+            //***************************************************************            
+
+
+            // Country
+            $form->add('label', 'label_birthCountry', 'birthCountry', 'In which country were you born?');
+            $obj = $form->add('select', 'birthCountry', '', '');
+            $obj->add_options($enrolmentForm->country);
+            $obj->set_rule(array(
+                'required' => array('error', 'Country is required.')
+            ));
 
             //***************************************************************
             //***************************************************************            
@@ -188,19 +293,17 @@
                 'minutes'   =>  array(0, 30),
             ));
 
-            // "submit"
+
+            //***************************************************************
+            //***************************************************************
+
+            // Submit button
             $form->add('submit', 'btnsubmit', 'Submit');
 
-            // if the form is valid
+            // Validate the form
             if ($form->validate()) {
-
-                // show results
                 show_results();
-
-            // otherwise
             } else
-
-                // generate output using a custom template
                 $form->render('template.php');
 
 
