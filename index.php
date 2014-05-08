@@ -272,7 +272,7 @@ $form->clientside_validation(array(
                 'required' => array('error', 'English level of comprehension is required.'),
                 'dependencies'   =>  array(array(
                    'languageOtherThanEnglish' => '1',
-                ), 'mycallback, 1'),
+                ), 'mycallback, 2'),
             ));
 
             // Aboriginal/Torres Strait Islander status
@@ -303,7 +303,7 @@ $form->clientside_validation(array(
                 'required' => array('error', 'Disability, impairment, or long-term conditions response is required.'),
                 'dependencies'   =>  array(array(
                    'disabilityStatus' => '1',
-                ), 'mycallback, 1'),
+                ), 'mycallback, 3'),
             ));
 
 
@@ -335,7 +335,7 @@ $form->clientside_validation(array(
             $obj->set_rule(array(
                 'dependencies'   =>  array(array(
                    'highestCompletedSchoolLevel' => '1',
-                ), 'mycallback, 1'),
+                ), 'mycallback, 4'),
             ));
 
             // School Name
@@ -345,7 +345,7 @@ $form->clientside_validation(array(
                 'required'  =>  array('error', 'School name is required.'),
                 'dependencies'   =>  array(array(
                    'highestCompletedSchoolLevel' => '1',
-                ), 'mycallback, 1'),
+                ), 'mycallback, 4'),
             ));
             
             // State
@@ -356,7 +356,7 @@ $form->clientside_validation(array(
                 'required' => array('error', 'School State is required.'),
                 'dependencies'   =>  array(array(
                    'highestCompletedSchoolLevel' => '1',
-                ), 'mycallback, 1'),                
+                ), 'mycallback, 4'),                
             ));
 
 

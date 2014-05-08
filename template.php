@@ -89,7 +89,7 @@
     <div class="cell"><?php echo $label_languageOtherThanEnglish . $languageOtherThanEnglish; ?> </div>
     <div class="clear"></div>
 
-        <div class="optional optional1">
+        <div class="optional optional2">
             <div class="cell"><?php echo $label_language . $language?></div>
             <div class="cell"><?php echo $label_englishAbility . $englishAbility; ?> </div>
         </div>
@@ -157,7 +157,7 @@
     <div class="cell"><?php echo $label_disabilityStatus . $disabilityStatus; ?> </div>
     <div class="clear"></div>
 
-        <div class="optional optional1">
+        <div class="optional optional3">
                 <?php echo $label_disabilityAreas; ?>
 
                 <div class="cell"><?php echo $disabilityAreas_ask_disabilityhearingdeaf; ?></div>
@@ -207,7 +207,7 @@
     <div class="cell"><?php echo $label_highestCompletedSchoolLevel . $highestCompletedSchoolLevel; ?> </div>
     <div class="clear"></div>
 
-        <div class="optional optional1">
+        <div class="optional optional4">
             <div class="cell"><?php echo $label_schoolSN . $schoolSN?></div>
             <div class="cell"><?php echo $label_schoolName . $schoolName?></div>
             <div class="cell"><?php echo $label_schoolState . $schoolState?></div>
