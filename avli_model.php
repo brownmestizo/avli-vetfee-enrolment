@@ -1,5 +1,8 @@
 <?php
 
+/* AVLI Form Pseudo-model */
+/* March 1, 2014 */
+/* brownmestizo@gmail.com */
 
 	class AvliForm {
 
@@ -15,6 +18,7 @@
 	class VetfeeEnrolment extends AvliForm {
 
 			public function __construct() {
+
 
 				$this->title = array(
 	                '1' =>  'Mr',
@@ -46,10 +50,13 @@
 		            '15' => 'BSB51413 Diploma of Project Management|BSB51107 Diploma of Management',
 				);
 
-				$this->previousName = array(
+				$this->yesNo = array(
             		'1' => 'Yes',
             		'2' => 'No',					
 				);
+				
+
+				$this->previousName = $this->yesNo;
 
 				$this->state = array(
 					  '8' => 'Australian Capital Territory',
@@ -61,6 +68,83 @@
 		              '1' => 'Victoria',
 		              '7' => 'Western Australia',
 				);
+
+				$this->englishAbility = array(
+	                '1' =>  'Very well',
+	                '2' =>  'Well',
+	                '3' =>  'Not well',
+	                '4' =>  'Not at all',
+            	);
+
+            	$this->aboriginalStatus = array(
+            		'4' => 'No',
+            		'3' => 'Yes, Aboriginal',
+            		'2' => 'Yes, Torres Strait Islander',
+            		'1' => 'Yes, Aboriginal and Torres Strait Islander',
+            	);
+
+            	$this->completedQualifications = array(
+            		'ask_qualbachelordegreeorhigherdegree' => 'Bachelor Degree or Higher Degree',
+            		'ask_qualadvanceddiplomaorassociatede' => 'Advanced Diploma or Associate Degree',
+            		'ask_qualdiploma' => 'Diploma (or Associate Diploma)',
+            		'ask_qualcertificateiv' => 'Certificate IV (or Advanced Certificate/Technician)',
+            		'ask_qualcertificateiii' => 'Certificate III (or Trade Certificate)',
+            		'ask_qualcertificateii' => 'Certificate II',
+            		'ask_qualcertificatei' => 'Certificate I',
+            		'ask_qualothers' => 'Certificates other than the above',
+            		'ask_qualnoneoftheabove' => 'None of the above',
+            	);
+
+				$this->disabilityStatus = $this->yesNo;
+
+            	$this->disabilityAreas = array(
+            		'ask_disabilityhearingdeaf' => 'Hearing or Deaf',
+            		'ask_disabilityphysical' => 'Physical',
+            		'ask_disabilityintellectual' => 'Intellectual',
+            		'ask_disabilitylearning' => 'Learning',
+            		'ask_disabilitymentalillness' => 'Mental Illness',
+            		'ask_disabilityacquiredbraininjury' => 'Acquired Brain Impairment',
+            		'ask_disabilityvision' => 'Vision',
+            		'ask_disabilitymedicalcondition' => 'Medical Condition',
+            		'ask_disabilityother' => 'Other',
+            	);     
+
+
+				$this->highestCompletedSchoolLevel = array(
+	                '1' =>  'Year 12 or equivalent',
+	                '2' =>  'Year 11 or equivalent',
+	                '3' =>  'Year 10 or equivalent',
+	                '4' =>  'Year 9 or equivalent',
+	                '5' =>  'Year 8 or below',
+	                '6' =>  'Never attended school',
+            	);     
+
+            	$this->secondarySchool = $this->yesNo;
+
+            	$this->employmentStatus = array(
+            		'1' =>  'Full-time employee',
+            		'2' =>  'Part-time employee',
+            		'3' =>  'Self employed - not employing others',
+            		'4' =>  'Employer',
+            		'5' =>  'Employed - unpaid worker in a family business',
+            		'6' =>  'Unemployed - seeking full-time work',
+            		'7' =>  'Unemployed - seeking part-time work',
+            		'8' =>  'Not employed - not seeking employment',
+            	);
+
+
+            	$this->studyReason = array(
+            		'1' => 'To get a job',
+            		'2' => 'To develop my existing business',
+            		'3' => 'To start my own business',
+            		'4' => 'To try for a different career',
+            		'5' => 'To get a better job or promotion',
+            		'6' => 'It was a requirement of my job',
+            		'7' => 'To get into another course of study',
+            		'8' => 'For personal interest or self-development',
+            		'9' => 'Other reasons'
+            	);
+
 
 				$this->country = array(
 					"12"=>"Australia",
