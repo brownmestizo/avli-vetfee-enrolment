@@ -69,6 +69,8 @@
 		              '7' => 'Western Australia',
 				);
 
+				$this->postalAddressQuestion = $this->yesNo;				
+
 				$this->englishAbility = array(
 	                '1' =>  'Very well',
 	                '2' =>  'Well',

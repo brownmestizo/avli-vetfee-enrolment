@@ -32,6 +32,7 @@ $form->clientside_validation(array(
         <link rel="stylesheet" href="vendor/stefangabos/zebra_form/public/css/zebra_form.css">
         <link rel="stylesheet" href="css/reset.css">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/custom.css">        
         <script src="components/jquery/jquery.min.js"></script>
         <script src="vendor/stefangabos/zebra_form/public/javascript/zebra_form.js"></script>
     </head>
@@ -82,7 +83,7 @@ $form->clientside_validation(array(
             $date->format('M d, Y');
 
             // selectable dates are starting with the current day
-            $date->direction(1);
+            $date->direction(-6000);
 
             // Email Address
             $form->add('note', 'note_emailAddress', 'emailAddress', 'Your email address will not be published.');
@@ -98,9 +99,10 @@ $form->clientside_validation(array(
 
             // Contact Number
             $form->add('label', 'label_contactNumber', 'contactNumber', 'Contact Number');
-            $obj = $form->add('text', 'contactNumber');
+            $obj = $form->add('text', 'contactNumber','', array('data-prefix' => '(+61)'));
             $obj->set_rule(array(
                 'required'  => array('error', 'Contact number is required.'),
+                'length'    => array(8, 10, 'error', 'Must contain between 8 and 10 digits!'),
                 'digits'    => array('', 'error', 'Should only include numbers and no special characters.')
             ));
             $form->add('note', 'note_contactNumber', 'contactNumber', 'Accepts only numbers and no special characters.');
@@ -122,8 +124,7 @@ $form->clientside_validation(array(
 
             // Do you have a previous name?
             $form->add('label', 'label_previousName', 'previousName', 'Do you have a previous name?');
-            $obj = $form->add('select', 'previousName', '', '');
-            $obj->add_options($enrolmentForm->previousName);
+            $obj = $form->add('radios', 'previousName', $enrolmentForm->previousName);
             $obj->set_rule(array(
                 'required' => array('error', 'Previous name response is required.')
             ));
@@ -194,10 +195,16 @@ $form->clientside_validation(array(
                 'required' => array('error', 'Country is required.')
             ));
 
+            // Do you have a different postal address?
+            $form->add('label', 'label_postalAddressQuestion', 'postalAddressQuestion', 'Do you have a different postal address?');
+            $obj = $form->add('radios', 'postalAddressQuestion', $enrolmentForm->postalAddressQuestion);
+            $obj->set_rule(array(
+                'required' => array('error', 'Previous name response is required.')
+            ));            
+
 
             //***************************************************************
             //***************************************************************            
-
 
             // Postal Address
 
@@ -205,16 +212,31 @@ $form->clientside_validation(array(
             $form->add('label', 'label_postalAddress', 'postalAddress', 'Address');
             $obj = $form->add('text', 'postalAddress');
             $obj->set_rule(array('required' => array('error', 'Address is required.')));
+            $obj->set_rule(array(
+                'dependencies'   =>  array(array(
+                   'postalAddressQuestion' => '1',
+                ), 'mycallback, 11'),
+            ));            
 
             // Suburb/Town
             $form->add('label', 'label_postalSuburb', 'postalSuburb', 'Suburb/Town');
             $obj = $form->add('text', 'postalSuburb');
             $obj->set_rule(array('required' => array('error', 'Suburb/Town is required.')));
+            $obj->set_rule(array(
+                'dependencies'   =>  array(array(
+                   'postalAddressQuestion' => '1',
+                ), 'mycallback, 11'),
+            ));                        
 
             // City
             $form->add('label', 'label_postalCity', 'postalCity', 'City');
             $obj = $form->add('text', 'postalCity');
             $obj->set_rule(array('required' => array('error', 'City is required.')));
+            $obj->set_rule(array(
+                'dependencies'   =>  array(array(
+                   'postalAddressQuestion' => '1',
+                ), 'mycallback, 11'),
+            ));                        
 
             // State
             $form->add('label', 'label_postalState', 'postalState', 'State');
@@ -223,6 +245,11 @@ $form->clientside_validation(array(
             $obj->set_rule(array(
                 'required' => array('error', 'State is required.')
             ));
+            $obj->set_rule(array(
+                'dependencies'   =>  array(array(
+                   'postalAddressQuestion' => '1',
+                ), 'mycallback, 11'),
+            ));                        
 
             // Country
             $form->add('label', 'label_postalCountry', 'postalCountry', 'Country');
@@ -231,6 +258,11 @@ $form->clientside_validation(array(
             $obj->set_rule(array(
                 'required' => array('error', 'Country is required.')
             ));
+            $obj->set_rule(array(
+                'dependencies'   =>  array(array(
+                   'postalAddressQuestion' => '1',
+                ), 'mycallback, 11'),
+            ));                        
 
 
             //***************************************************************
@@ -247,8 +279,7 @@ $form->clientside_validation(array(
 
             // Do you speak a language other than English at home?
             $form->add('label', 'label_languageOtherThanEnglish', 'languageOtherThanEnglish', 'Do you speak a language other than English at home?');
-            $obj = $form->add('select', 'languageOtherThanEnglish', '', '');
-            $obj->add_options($enrolmentForm->previousName);
+            $obj = $form->add('radios', 'languageOtherThanEnglish', $enrolmentForm->previousName);
             $obj->set_rule(array(
                 'required' => array('error', 'Language response is required.')
             ));
@@ -261,7 +292,7 @@ $form->clientside_validation(array(
                 'required'  =>  array('error', 'Specific language is required.'),
                 'dependencies'   =>  array(array(
                    'languageOtherThanEnglish' => '1',
-                ), 'mycallback, 1'),
+                ), 'mycallback, 2'),
             ));
 
             // English ability
@@ -293,8 +324,11 @@ $form->clientside_validation(array(
 
             // Disability status
             $form->add('label', 'label_disabilityStatus', 'disabilityStatus', 'Do you consider yourself to have a disability, impairment or long-term condition?');
-            $obj = $form->add('select', 'disabilityStatus', '', '');
-            $obj->add_options($enrolmentForm->disabilityStatus);
+            $obj = $form->add('radios', 'disabilityStatus', $enrolmentForm->disabilityStatus);            
+            $obj->set_rule(array(
+                'required' => array('error', 'Disability status response is required.')
+            ));
+
 
             // Please indicate the area/s of disability, impairment or long-term condition that you have
             $form->add('label', 'label_disabilityAreas', 'disabilityAreas', 'Please indicate the area/s of disability, impairment or long-term condition that you have');
@@ -388,6 +422,11 @@ $form->clientside_validation(array(
 
             //***************************************************************
             //***************************************************************
+
+            // Application ID
+            $form->add('label', 'label_applicationID', 'applicationID', 'Application ID');
+            $obj = $form->add('text', 'applicationID');
+
 
 
             // Submit button

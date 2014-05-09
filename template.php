@@ -39,7 +39,16 @@
 </div>
 
 <div class="row">    
-    <div class="cell"><?php echo $label_previousName . $previousName; ?> </div>
+    <div class="cell">
+        <div class="cell"><?php echo $label_previousName; ?></div>
+
+        <div class="cell"><?php echo $previousName_1; ?></div>
+        <div class="cell"><?php echo $label_previousName_1; ?></div>
+
+        <div class="cell"><?php echo $previousName_2; ?></div>
+        <div class="cell"><?php echo $label_previousName_2; ?></div>
+    </div>
+
     <div class="clear"></div>
 
         <div class="optional optional1">
@@ -62,12 +71,29 @@
 
     <div class="cell"><?php echo $label_homeState . $homeState; ?></div>
     <div class="cell"><?php echo $label_homeCountry . $homeCountry; ?></div>
+
+    <div class="clear"></div>
+
 </div>
 
-<!-- ######################## -->
 
-<div class="row"> <h3>Postal Address</h3> </div>
-<div class="row even">    
+<div class="row">    
+    <div class="cell">
+        <div class="cell"><?php echo $label_postalAddressQuestion; ?></div>
+
+        <div class="cell"><?php echo $postalAddressQuestion_1; ?></div>
+        <div class="cell"><?php echo $label_postalAddressQuestion_1; ?></div>
+
+        <div class="cell"><?php echo $postalAddressQuestion_2; ?></div>
+        <div class="cell"><?php echo $label_postalAddressQuestion_2; ?></div>
+        <div class="clear"></div>    
+    </div>    
+</div>
+
+<div class="row optional optional11">
+
+    <div class="clear"></div>    
+
     <div class="cell"><?php echo $label_postalAddress . $postalAddress; ?> </div>
     <div class="cell"><?php echo $label_postalSuburb . $postalSuburb; ?></div>
     <div class="cell"><?php echo $label_postalCity . $postalCity; ?></div>
@@ -76,6 +102,7 @@
 
     <div class="cell"><?php echo $label_postalState . $postalState; ?></div>
     <div class="cell"><?php echo $label_postalCountry . $postalCountry; ?></div>
+
 </div>
 
 <!-- ######################## -->
@@ -86,11 +113,21 @@
 </div>
 
 <div class="row">    
-    <div class="cell"><?php echo $label_languageOtherThanEnglish . $languageOtherThanEnglish; ?> </div>
+    <div class="cell">
+        <div class="cell"><?php echo $label_languageOtherThanEnglish; ?></div>
+
+        <div class="cell"><?php echo $languageOtherThanEnglish_1; ?></div>
+        <div class="cell"><?php echo $label_languageOtherThanEnglish_1; ?></div>
+
+        <div class="cell"><?php echo $languageOtherThanEnglish_2; ?></div>
+        <div class="cell"><?php echo $label_languageOtherThanEnglish_2; ?></div>
+    </div>
+
     <div class="clear"></div>
 
         <div class="optional optional2">
             <div class="cell"><?php echo $label_language . $language?></div>
+            <div class="clear"></div>
             <div class="cell"><?php echo $label_englishAbility . $englishAbility; ?> </div>
         </div>
 </div>
@@ -154,7 +191,19 @@
 
 <div class="row"> <h3>Disability</h3> </div>
 <div class="row even">    
-    <div class="cell"><?php echo $label_disabilityStatus . $disabilityStatus; ?> </div>
+
+    <div class="cell">
+        <div class="cell"><?php echo $label_disabilityStatus; ?></div>
+
+        <div class="cell"><?php echo $disabilityStatus_1; ?></div>
+        <div class="cell"><?php echo $label_disabilityStatus_1; ?></div>
+
+        <div class="cell"><?php echo $disabilityStatus_2; ?></div>
+        <div class="cell"><?php echo $label_disabilityStatus_2; ?></div>
+        <div class="clear"></div>
+    </div>
+
+
     <div class="clear"></div>
 
         <div class="optional optional3">
@@ -208,9 +257,9 @@
     <div class="clear"></div>
 
         <div class="optional optional4">
-            <div class="cell"><?php echo $label_schoolSN . $schoolSN?></div>
-            <div class="cell"><?php echo $label_schoolName . $schoolName?></div>
-            <div class="cell"><?php echo $label_schoolState . $schoolState?></div>
+            <div class="cell"><?php echo $label_schoolSN . $schoolSN; ?></div>
+            <div class="cell"><?php echo $label_schoolName . $schoolName; ?></div>
+            <div class="cell"><?php echo $label_schoolState . $schoolState; ?></div>
         </div>
 
 </div>
@@ -221,14 +270,13 @@
 
 <div class="row even">
     <div class="cell">
-        <?php echo $label_attendingSecondary?>
+        <div class="cell"><?php echo $label_attendingSecondary; ?></div>
 
-        <div class="cell"><?php echo $attendingSecondary_1?></div>
-        <div class="cell"><?php echo $label_attendingSecondary_1?></div>
-        <div class="clear"></div>
+        <div class="cell"><?php echo $attendingSecondary_1; ?></div>
+        <div class="cell"><?php echo $label_attendingSecondary_1; ?></div>
 
-        <div class="cell"><?php echo $attendingSecondary_2?></div>
-        <div class="cell"><?php echo $label_attendingSecondary_2?></div>
+        <div class="cell"><?php echo $attendingSecondary_2; ?></div>
+        <div class="cell"><?php echo $label_attendingSecondary_2; ?></div>
         <div class="clear"></div>
     </div>
 </div>
@@ -238,7 +286,7 @@
 <div class="row"> <h3>Employment</h3> </div>
 
 <div class="row even">
-    <div class="cell"><?php echo $label_employmentStatus . $employmentStatus?></div>
+    <div class="cell"><?php echo $label_employmentStatus . $employmentStatus; ?></div>
 </div>
 
 
@@ -247,7 +295,7 @@
 <div class="row"> <h3>Study Reason</h3> </div>
 
 <div class="row even">
-    <div class="cell"><?php echo $label_studyReason . $studyReason?></div>
+    <div class="cell"><?php echo $label_studyReason . $studyReason; ?></div>
 </div>
 
 
@@ -324,7 +372,12 @@
             </th></tr>
         </tbody></table>
     </div>
+    <div class="clear"></div>
+    <div class="cell">
+        <div class="cell"><?php echo $label_applicationID . $applicationID?></div>
+    </div>
 </div>
+
 
 
 
