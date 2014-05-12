@@ -19,7 +19,6 @@
 
 			public function __construct() {
 
-
 				$this->title = array(
 	                '1' =>  'Mr',
 	                '2' =>  'Mrs',

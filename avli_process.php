@@ -2,11 +2,6 @@
 /* AVLI VET-FEE Enrolment Form */
 /* March 1, 2014 */
 /* brownmestizo@gmail.com */
-
-require 'avli_model.php';
-
-$enrolmentForm = new VetfeeEnrolment();
-require 'avli_loader.php';
 ?>
 <html>
     <head>
@@ -25,8 +20,18 @@ require 'avli_loader.php';
     <body>
         
         <?php 
-            print_r($_SESSION);
-            print_r($_POST);
+            function show_results() {
+
+                echo '<table class="results"><thead><tr><td colspan="2">Submitted values</td></tr></thead>';
+                foreach ($_POST as $key => $value) {
+                    if (strpos($key, 'name_') !== 0 && strpos($key, 'timer_') !== 0 && strpos($key, 'response_') !== 0)
+                        echo '<tr><th>' . $key . '</th><td>' . (is_array($value) ? '<pre>' . print_r($value, true) . '</pre>' : $value) . '</td></tr>';
+                }
+
+                echo '</table>';
+            }
+
+            show_results();
         ?>
 
     </body>

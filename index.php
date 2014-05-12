@@ -9,7 +9,7 @@ include_once ('vendor/stefangabos/zebra_form/Zebra_Form.php');
 include_once ('avli_model.php');
 
 // instantiate two objects
-$form = new Zebra_Form('form');
+$form = new Zebra_Form('form', 'POST', 'avli_process.php', '');
 $enrolmentForm = new VetfeeEnrolment();
 $form->show_all_error_messages(true);
 $form->clientside_validation(true);
