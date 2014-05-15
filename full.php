@@ -9,7 +9,7 @@ include_once ('vendor/stefangabos/zebra_form/Zebra_Form.php');
 include_once ('avli_model.php');
 
 // instantiate two objects
-$form = new Zebra_Form('form', 'POST', 'step2.php', '');
+$form = new Zebra_Form('form', 'POST', 'avli_process.php', '');
 $enrolmentForm = new VetfeeEnrolment();
 $form->show_all_error_messages(true);
 $form->clientside_validation(true);
@@ -35,6 +35,7 @@ $form->clientside_validation(array(
         <link rel="stylesheet" href="css/custom.css">        
         <script src="components/jquery/jquery.min.js"></script>
         <script src="vendor/stefangabos/zebra_form/public/javascript/zebra_form.js"></script>
+        <script src="js/jquery.steps.js"></script>
     </head>
 
     <body>
@@ -80,10 +81,10 @@ $form->clientside_validation(array(
             // date format
             // don't forget to use $date->get_date() if the form is valid to get the date in YYYY-MM-DD format ready to be used
             // in a database or with PHP's strtotime function!
-            //$date->format('M d, Y');
+            $date->format('M d, Y');
 
             // selectable dates are starting with the current day
-            $date->direction(array('1914-01-01', '2004-12-12'));
+            $date->direction(-6000);
 
             // Email Address
             $form->add('note', 'note_emailAddress', 'emailAddress', 'Your email address will not be published.');
@@ -164,20 +165,10 @@ $form->clientside_validation(array(
 
             // Home Address
 
-            // Building/Property Name
-            $form->add('label', 'label_homeBuildingPropertyName', 'homeBuildingPropertyName', 'Building/Property name');
-            $obj = $form->add('text', 'homeBuildingPropertyName');
-            //$obj->set_rule(array('required' => array('error', 'Building/Property name is required.')));
-
-            // Flat/Unit
-            $form->add('label', 'label_homeFlatUnitNumber', 'homeFlatUnitNumber', 'Flat/Unit number');
-            $obj = $form->add('text', 'homeFlatUnitNumber');
-            //$obj->set_rule(array('required' => array('error', 'Building/Property name is required.')));            
-
-            // Street/Lot Number
-            $form->add('label', 'label_homeStreetLotNumber', 'homeStreetLotNumber', 'Street/Lot number (e.g. 205 or Lot 118)');
-            $obj = $form->add('text', 'homeStreetLotNumber');
-            $obj->set_rule(array('required' => array('error', 'Street/Lot number is required.')));                        
+            // Address
+            $form->add('label', 'label_homeAddress', 'homeAddress', 'Address');
+            $obj = $form->add('text', 'homeAddress');
+            $obj->set_rule(array('required' => array('error', 'Address is required.')));
 
             // Suburb/Town
             $form->add('label', 'label_homeSuburb', 'homeSuburb', 'Suburb/Town');
@@ -218,35 +209,15 @@ $form->clientside_validation(array(
 
             // Postal Address
 
-            // Building/Property Name
-            $form->add('label', 'label_postalBuildingPropertyName', 'postalBuildingPropertyName', 'Building/Property name');
-            $obj = $form->add('text', 'postalBuildingPropertyName');
+            // Address
+            $form->add('label', 'label_postalAddress', 'postalAddress', 'Address');
+            $obj = $form->add('text', 'postalAddress');
+            $obj->set_rule(array('required' => array('error', 'Address is required.')));
             $obj->set_rule(array(
                 'dependencies'   =>  array(array(
                    'postalAddressQuestion' => '1',
                 ), 'mycallback, 11'),
             ));            
-
-
-            // Flat/Unit
-            $form->add('label', 'label_postalFlatUnitNumber', 'postalFlatUnitNumber', 'Flat/Unit number');
-            $obj = $form->add('text', 'postalFlatUnitNumber');
-            $obj->set_rule(array(
-                'dependencies'   =>  array(array(
-                   'postalAddressQuestion' => '1',
-                ), 'mycallback, 11'),
-            ));            
-
-            // Street/Lot Number
-            $form->add('label', 'label_postalStreetLotNumber', 'postalStreetLotNumber', 'Street/Lot number (e.g. 205 or Lot 118)');
-            $obj = $form->add('text', 'postalStreetLotNumber');
-            $obj->set_rule(array('required' => array('error', 'Street/Lot number is required.')));                        
-            $obj->set_rule(array(
-                'dependencies'   =>  array(array(
-                   'postalAddressQuestion' => '1',
-                ), 'mycallback, 11'),
-            ));            
-
 
             // Suburb/Town
             $form->add('label', 'label_postalSuburb', 'postalSuburb', 'Suburb/Town');
@@ -295,17 +266,178 @@ $form->clientside_validation(array(
             ));                        
 
 
+            //***************************************************************
+            //***************************************************************            
+
+
+            // Country
+            $form->add('label', 'label_birthCountry', 'birthCountry', 'In which country were you born?');
+            $obj = $form->add('select', 'birthCountry', '', '');
+            $obj->add_options($enrolmentForm->country);
+            $obj->set_rule(array(
+                'required' => array('error', 'Country is required.')
+            ));
+
+            // Do you speak a language other than English at home?
+            $form->add('label', 'label_languageOtherThanEnglish', 'languageOtherThanEnglish', 'Do you speak a language other than English at home?');
+            $obj = $form->add('radios', 'languageOtherThanEnglish', $enrolmentForm->previousName);
+            $obj->set_rule(array(
+                'required' => array('error', 'Language response is required.')
+            ));
+
+            
+            // What language is it?
+            $form->add('label', 'label_language', 'language', 'Please specify what language it is');
+            $obj = $form->add('text', 'language');
+            $obj->set_rule(array(
+                'required'  =>  array('error', 'Specific language is required.'),
+                'dependencies'   =>  array(array(
+                   'languageOtherThanEnglish' => '1',
+                ), 'mycallback, 2'),
+            ));
+
+            // English ability
+            $form->add('label', 'label_englishAbility', 'englishAbility', 'How well do you speak English?');
+            $obj = $form->add('select', 'englishAbility', '', '');
+            $obj->add_options($enrolmentForm->englishAbility);
+            $obj->set_rule(array(
+                'required' => array('error', 'English level of comprehension is required.'),
+                'dependencies'   =>  array(array(
+                   'languageOtherThanEnglish' => '1',
+                ), 'mycallback, 2'),
+            ));
+
+            // Aboriginal/Torres Strait Islander status
+            $form->add('label', 'label_aboriginalStatus', 'aboriginalStatus', 'Are you of Aboriginal or Torres Strait Islander origin?');
+            $obj = $form->add('select', 'aboriginalStatus', '', '');
+            $obj->add_options($enrolmentForm->aboriginalStatus);
+            $obj->set_rule(array(
+                'required' => array('error', 'Your Aboriginal/Torres Strait Islander origin response is required.'),
+            ));            
+
+
+            //***************************************************************
+            //***************************************************************            
+
+            // Have you successfully completed any of the following qualifications?
+            $form->add('label', 'label_compQuals', 'compQuals', 'Have you successfully completed any of the following qualifications?');
+            $obj = $form->add('checkboxes', 'compQuals[]', $enrolmentForm->completedQualifications);
+
+            // Disability status
+            $form->add('label', 'label_disabilityStatus', 'disabilityStatus', 'Do you consider yourself to have a disability, impairment or long-term condition?');
+            $obj = $form->add('radios', 'disabilityStatus', $enrolmentForm->disabilityStatus);            
+            $obj->set_rule(array(
+                'required' => array('error', 'Disability status response is required.')
+            ));
+
+
+            // Please indicate the area/s of disability, impairment or long-term condition that you have
+            $form->add('label', 'label_disabilityAreas', 'disabilityAreas', 'Please indicate the area/s of disability, impairment or long-term condition that you have');
+            $obj = $form->add('checkboxes', 'disabilityAreas[]', $enrolmentForm->disabilityAreas);
+            $obj->set_rule(array(
+                'required' => array('error', 'Disability, impairment, or long-term conditions response is required.'),
+                'dependencies'   =>  array(array(
+                   'disabilityStatus' => '1',
+                ), 'mycallback, 3'),
+            ));
+
+
+            //***************************************************************
+            //***************************************************************
+
+            // What is your highest completed school level?
+            $form->add('label', 'label_highestCompletedSchoolLevel', 'highestCompletedSchoolLevel', 'What is your highest completed school level?');            
+            $obj = $form->add('select', 'highestCompletedSchoolLevel', '', '');
+            $obj->add_options($enrolmentForm->highestCompletedSchoolLevel);            
+
+            // In which year did you complete that school level?
+            $form->add('label', 'label_yearOfCompletion', 'yearOfCompletion', 'In which year did you complete that school level?');
+            $obj = $form->add('text', 'yearOfCompletion');
+
+            // Are you still attending secondary school?
+            $form->add('label', 'label_attendingSecondary', 'attendingSecondary', 'Are you still attending secondary school?');
+            $obj = $form->add('radios', 'attendingSecondary', $enrolmentForm->secondarySchool);
+            $obj->set_rule(array(
+                'required' => array('error', 'Currently attending secondary school response is required.')
+            ));
+
+
+            // If student completed year 12 or equivalent
+
+            // School student number
+            $form->add('label', 'label_schoolSN', 'schoolSN', 'School student number');
+            $obj = $form->add('text', 'schoolSN');
+            $obj->set_rule(array(
+                'dependencies'   =>  array(array(
+                   'highestCompletedSchoolLevel' => '1',
+                ), 'mycallback, 4'),
+            ));
+
+            // School Name
+            $form->add('label', 'label_schoolName', 'schoolName', 'School name');
+            $obj = $form->add('text', 'schoolName');
+            $obj->set_rule(array(
+                'required'  =>  array('error', 'School name is required.'),
+                'dependencies'   =>  array(array(
+                   'highestCompletedSchoolLevel' => '1',
+                ), 'mycallback, 4'),
+            ));
+            
+            // State
+            $form->add('label', 'label_schoolState', 'schoolState', 'State');
+            $obj = $form->add('select', 'schoolState', '', '');
+            $obj->add_options($enrolmentForm->state);
+            $obj->set_rule(array(
+                'required' => array('error', 'School State is required.'),
+                'dependencies'   =>  array(array(
+                   'highestCompletedSchoolLevel' => '1',
+                ), 'mycallback, 4'),                
+            ));
+
+
+            //***************************************************************
+            //***************************************************************
+
+
+            // Of the following categories, which BEST describes your current employment status?
+            $form->add('label', 'label_employmentStatus', 'employmentStatus', 'Of the following categories, which BEST describes your current employment status?');
+            $obj = $form->add('select', 'employmentStatus', '', '');
+            $obj->add_options($enrolmentForm->employmentStatus);
+            $obj->set_rule(array(
+                'required' => array('error', 'Employment status is required.'),
+            ));
+
+
+            //***************************************************************
+            //***************************************************************
+
+
+            // Of the following categories, which BEST describes your main reason for undertaking this course / traineeship / apprenticeship
+            $form->add('label', 'label_studyReason', 'studyReason', 'Of the following categories, which BEST describes your main reason for undertaking this course / traineeship / apprenticeship');
+            $obj = $form->add('select', 'studyReason', '', '');
+            $obj->add_options($enrolmentForm->studyReason);
+            $obj->set_rule(array(
+                'required' => array('error', 'Study reason is required.'),
+            ));
+
+
+            //***************************************************************
+            //***************************************************************
+
+            // Application ID
+            $form->add('label', 'label_applicationID', 'applicationID', 'Application ID');
+            $obj = $form->add('text', 'applicationID');
+
+
 
             // Submit button
             $form->add('submit', 'btnsubmit', 'Submit');
 
             // Validate the form
-            /*
             if ($form->validate()) {
                 show_results();
             } else
-            */
-                $form->render('template-step1.php');
+                $form->render('template-full.php');
 
         ?>
 
