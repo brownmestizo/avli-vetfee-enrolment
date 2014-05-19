@@ -1,15 +1,3 @@
-<style type="text/css">
-    .Zebra_Form .optional { display: none }
-</style>
-
-<script type="text/javascript">
-    var mycallback = function(value, segment) {
-        $segment = $('.optional' + segment);
-        if (value) $segment.show();
-        else $segment.hide();
-    }
-</script>
-
 <?php
     echo (isset($zf_error) ? $zf_error : (isset($error) ? $error : ''));
 ?>

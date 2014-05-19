@@ -33,6 +33,7 @@ $form->clientside_validation(array(
         <link rel="stylesheet" href="css/reset.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/custom.css">        
+        <script src="js/form.js"></script>
         <script src="components/jquery/jquery.min.js"></script>
         <script src="vendor/stefangabos/zebra_form/public/javascript/zebra_form.js"></script>
     </head>
