@@ -2,7 +2,9 @@
     echo (isset($zf_error) ? $zf_error : (isset($error) ? $error : ''));
 ?>
 
-
+    <div class="row">
+        <h1>AVLI Enrolment</h1>
+    </div>
 
     <div class="row">
         <div class="cell"><?php echo $label_title . $title; ?> </div>

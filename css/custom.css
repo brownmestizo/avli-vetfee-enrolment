@@ -1,5 +1,5 @@
 
-h3 {
+h1, h2, h3, h4, h5, h6 {
 	margin-top: 0.5em;
 }
 
@@ -12,4 +12,52 @@ h3 {
 
 .Zebra_Form .optional {
 	display: none;
+}
+
+
+/* General button style (reset) */
+input.submit {
+	border: none !important;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	cursor: pointer;
+	padding: 25px 80px !important;
+	display: inline-block;
+	margin: 40px 0px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 700;
+	outline: none;
+	position: relative;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+	background: #17aa56 !important;
+	color: #fff;
+	box-shadow: 0 6px #119e4d !important;
+	-webkit-transition: none;
+	-moz-transition: none;
+	transition: none;
+	border-radius: 5px 5px 5px 5px !important;
+}	
+}
+
+input.submit:after {
+	content: '';
+	position: absolute;
+	z-index: -1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+input.submit:hover {
+	box-shadow: 0 8px #ab3c3c;
+	top: -2px;
+}
+
+input.submit:active {
+	box-shadow: 0 0 #ab3c3c;
+	top: 6px;
 }

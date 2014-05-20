@@ -28,20 +28,19 @@ $form->clientside_validation(array(
     <head>
         <title>AVLI VET FEE ENROLMENT FORM</title>
         <meta charset="utf-8">
-        <!-- load Zebra_Form's stylesheet file -->
+
         <link rel="stylesheet" href="vendor/stefangabos/zebra_form/public/css/zebra_form.css">
-        <link rel="stylesheet" href="css/reset.css">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/custom.css">        
-        <link rel="stylesheet" href="framework_style/stylesheets/app.css" />
-        <script src="framework_style/bower_components/modernizr/modernizr.js"></script>
-        <script src="js/form.js"></script>
+        <link rel="stylesheet" href="css/build.css">
+        <link rel="stylesheet" href="framework_style/stylesheets/app.css">
+
         <script src="components/jquery/jquery.min.js"></script>
-        <script src="vendor/stefangabos/zebra_form/public/javascript/zebra_form.js"></script>
+        <script src="framework_style/bower_components/modernizr/modernizr.js"></script>
+        <script src="js/build/form.min.js"></script>
+
     </head>
 
     <body>
-        
+
         <?php 
             // Title
             $form->add('label', 'label_title', 'title', 'Title');
